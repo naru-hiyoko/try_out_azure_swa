@@ -1,24 +1,96 @@
 {
-  "name": "vanilla-api",
+  "name": "try-out-azure-swa",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "swa start src --api-location api",
-    "playwright_test": "playwright test"
+    "start": "swa start app --api-location api",
+    "lint": "npx tsc -p . --noEmit && npx eslint ./src/**/*.ts ./src/**/*.tsx ./test/**/*.ts",
+    "build": "NODE_ENV=production webpack",
+    "test": "jest --testTimeout 6000000",
+    "watch": "webpack-dev-server --config ./webpack.config.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HannahZhuSWE/vanilla-api.git"
+    "url": "git+https://github.com:naru-hiyoko/try_out_azure_swa.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/HannahZhuSWE/vanilla-api/issues"
+    "url": "https://github.com/naru-hiyoko/try_out_azure_swa/issues"
   },
-  "homepage": "https://github.com/HannahZhuSWE/vanilla-api#readme",
+  "homepage": "https://github.com/naru-hiyoko/try_out_azure_swa#readme",
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
   "devDependencies": {
-    "@playwright/test": "^1.23.2"
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.23",
+    "@types/power-assert": "^1.5.8",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
+    "@types/react-redux": "^7.1.23",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/redux-logger": "^3.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "babel-loader": "^8.2.4",
+    "connected-react-router": "^6.9.2",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "file-loader": "^6.2.0",
+    "jest": "^27.5.1",
+    "jest-environment-jsdom": "^27.5.1",
+    "jest-environment-jsdom-global": "^3.0.0",
+    "power-assert": "^1.6.1",
+    "prettier": "^2.6.1",
+    "react-router-dom": "5.2.0",
+    "redux-logger": "^3.0.6",
+    "style-loader": "^3.3.1",
+    "ts-jest": "^27.1.4",
+    "ts-loader": "^9.2.8",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.182",
+    "@types/react-beautiful-dnd": "^13.1.2",
+    "@types/react-calendar-timeline": "^0.26.6",
+    "@types/react-datepicker": "^4.4.2",
+    "bootstrap": "^5.1.3",
+    "chart.js": "^3.7.1",
+    "chartjs-adapter-date-fns": "^2.0.0",
+    "date-fns": "^2.28.0",
+    "interactjs": "^1.10.14",
+    "lodash": "^4.17.21",
+    "portable-fetch": "^3.0.0",
+    "react": "^17.0.2",
+    "react-beautiful-dnd": "^13.1.0",
+    "react-bootstrap": "^2.3.0",
+    "react-calendar-timeline": "^0.28.0",
+    "react-chartjs-2": "^4.1.0",
+    "react-datepicker": "^4.8.0",
+    "react-device-detect": "^2.2.2",
+    "react-dom": "^17.0.2",
+    "react-multi-select-component": "^4.2.9",
+    "react-redux": "^7.2.8",
+    "redux": "^4.1.2",
+    "redux-saga": "^1.1.3",
+    "typescript-fsa": "^3.0.0",
+    "typescript-fsa-reducers": "^1.2.2",
+    "url": "^0.11.0"
   }
 }
