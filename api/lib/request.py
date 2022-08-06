@@ -19,6 +19,18 @@ def validate_body_params(validator: Validator, req: HttpRequest) -> [dict, BadRe
     return params
 
 
+def validate_query_params(validator: Validator, req: HttpRequest) -> [dict, BadRequest]:
+    params = {k: v for k, v in req.params.items()}
+    try:
+        if not validator(params):
+            raise BadRequest()
+
+    except (ValueError, JSONDecodeError, DocumentError):
+        raise BadRequest()
+
+    return params
+
+
 def validate_route_params(validator: Validator, req: HttpRequest) -> [dict, BadRequest]:
     route_params = {k: v for k, v in req.route_params.items()}
     if not validator(route_params):
