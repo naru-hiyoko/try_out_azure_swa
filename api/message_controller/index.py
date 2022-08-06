@@ -91,6 +91,8 @@ def delete_remove_one(req: HttpRequest, route_params: dict):
         return error_resp
 
     with Session() as session:
-        session.query(Message).filter(Message.id==query_params['id'])
+        # message = session.query(Message).filter_by(Message.id==query_params['id']).one_or_none()
+        session.query(Message).filter(Message.id==query_params['id']).delete()
+        session.commit()
 
     return HttpResponse(json.dumps({}), status_code=200, mimetype='application/json')
