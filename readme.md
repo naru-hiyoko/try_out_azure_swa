@@ -33,7 +33,7 @@ OS 公式の手順に従いインストールを行う.
 * 下記のコマンドを実行する.
 
 ```
-swa start src/ --api-location api/
+swa start app_build/ --api-location api/
 ```
 
 * 実行後, ブラウザから http://localhost:4280 でデモページを確認できる.
@@ -74,6 +74,35 @@ swa start src/ --api-location api/
 
 ### ローカルでの実行
 
+* FE の dev サーバーが port 3000 で起動するため, cors を設定する.
+
 ```
-[api]$func start
+[api]$func start --cors http://127.0.0.1:3000
+```
+
+## Frontend APP
+
+`react`, `next` による SPP.
+[こちらの boilerplate](https://github.com/shimpeiws/react-boilerplate-2022) を参考にしている.
+
+### 依存関係のインストール
+
+* `yarn` を利用
+
+```
+[app]$yarn install
+```
+
+### ローカルでのデバッグ実行
+
+```
+[app]$npx next dev
+```
+
+### ビルド＆エクスポート
+
+See [here](https://nextjs.org/docs/advanced-features/static-html-export).
+
+```
+[app]$npx next build && npx next export -o ../app_build
 ```
