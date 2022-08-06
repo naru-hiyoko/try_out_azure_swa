@@ -10,8 +10,7 @@ def test_returns_200():
     }).encode('utf-8')
 
     route_params = {
-        'action': 'hello',
-        'id': '1',
+        'action': 'create_one',
     }
 
     req = func.HttpRequest(method='POST', body=body, route_params=route_params, url='')

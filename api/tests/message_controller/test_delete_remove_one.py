@@ -11,18 +11,14 @@ def test_returns_200():
         session.add(entity)
         session.commit()
 
-    body = json.dumps({
-        'message': 'hello',
-    }).encode('utf-8')
+    body = json.dumps({}).encode('utf-8')
     route_params = {
-        'action': 'all',
+        'action': 'remove_one',
     }
-    req = func.HttpRequest(method='GET', body=None, route_params=route_params, params={}, url='')
+    req = func.HttpRequest(method='DELETE', body=None, route_params=route_params, params={'id': 1}, url='')
     resp = main(req)
     resp_body = json.loads(resp.get_body())
-    expected = [
-        {'id': 1, 'content': 'test'}
-    ]
+    expected = {}
 
     assert resp.status_code == 200
     assert resp_body == expected

@@ -5,7 +5,7 @@ import logging
 from azure.functions import HttpRequest, HttpResponse
 from cerberus import Validator
 from lib.errors import BadRequest, MethodNotMatched
-from lib.request import validate_body_params, validate_route_params
+from lib.request import validate_body_params, validate_route_params, validate_query_params
 from lib.models import Session, Message
 
 
@@ -14,12 +14,12 @@ def main(req: HttpRequest) -> HttpResponse:
         'action': {
             'type': 'string',
             'required': True,
-            'allowed': ['hello'],
+            'allowed': ['all', 'find_one', 'create_one', 'remove_one'],
         },
-        'id': {
-            'coerce': int,
-            'required': True,
-        },
+        # 'id': {
+        #     'coerce': int,
+        #     'required': True,
+        # },
     })
 
     try:
@@ -37,7 +37,7 @@ def main(req: HttpRequest) -> HttpResponse:
     return resp
 
 
-def get_hello(req: HttpRequest, route_params: dict):
+def get_all(req: HttpRequest, route_params: dict):
     with Session() as session:
         messages_list = session.query(Message).all()
 
@@ -50,7 +50,7 @@ def get_hello(req: HttpRequest, route_params: dict):
     return HttpResponse(resp_body, status_code=200, mimetype='application/json')
 
 
-def post_hello(req: HttpRequest, route_params: dict):
+def post_create_one(req: HttpRequest, route_params: dict):
     validator = Validator({
         'message': {
             'type': 'string',
@@ -75,3 +75,22 @@ def post_hello(req: HttpRequest, route_params: dict):
         'message': f'echo back `{message}` from POST method.'
     })
     return HttpResponse(resp_body, status_code=200, mimetype='application/json')
+
+
+def delete_remove_one(req: HttpRequest, route_params: dict):
+    validator = Validator({
+        'id': {
+            'coerce': int,
+            'required': True,
+        },
+    })
+
+    try:
+        query_params = validate_query_params(validator, req)
+    except BadRequest as error_resp:
+        return error_resp
+
+    with Session() as session:
+        session.query(Message).filter(Message.id==query_params['id'])
+
+    return HttpResponse(json.dumps({}), status_code=200, mimetype='application/json')

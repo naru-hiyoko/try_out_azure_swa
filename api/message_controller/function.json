@@ -9,7 +9,7 @@
       "methods": [
         "post", "get", "put", "del"
       ],
-      "route": "message/{action}/{id}"
+      "route": "message/{action}"
     },
     {
       "type": "http",
