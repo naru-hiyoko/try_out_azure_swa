@@ -77,7 +77,24 @@ swa start app_build/ --api-location api/
 * FE の dev サーバーが port 3000 で起動するため, cors を設定する.
 
 ```
-[api]$func start --cors http://127.0.0.1:3000
+[api]$func start --cors http://127.0.0.1:3000 --python
+```
+
+#### 設定
+
+* `api/local.settings.json` を通して環境変数を設定する.
+* DB の接続などに利用する.
+
+```
+# api/local.settings.json
+
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "FUNCTIONS_WORKER_RUNTIME_VERSION": "3.9"
+  }
+}
 ```
 
 ## Frontend APP
@@ -95,13 +112,23 @@ swa start app_build/ --api-location api/
 
 ### ローカルでのデバッグ実行
 
+* BE サーバーをローカルで起動した状態で下記を実行する.
+* ローカルの BE API サーバーに向けるには `app/.env.local` に記述する.
+
 ```
 [app]$npx next dev
 ```
 
+```
+# app/.env.local
+
+NEXT_PUBLIC_AZFUN_API_HOST=http://localhost:7071
+```
+
 ### ビルド＆エクスポート
 
-See [here](https://nextjs.org/docs/advanced-features/static-html-export).
+* azure static web apps でホストする場合は静的コンテンツをエクスポートする.
+* See [here](https://nextjs.org/docs/advanced-features/static-html-export).
 
 ```
 [app]$npx next build && npx next export -o ../app_build
