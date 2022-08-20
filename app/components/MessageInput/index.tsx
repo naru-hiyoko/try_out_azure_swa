@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useState, useContext, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router'
-import Alert from 'react-popup-alert'
+import { Box, Button, TextInput, FormControl } from '@primer/react'
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from 'zod';
 import { Message } from '../../models/Message'
@@ -15,60 +15,41 @@ const schema = zod.object({
 export const MessageInput = (props): ReactElement => {
   const router = useRouter();
   const [buttonPressedCount, setButtonPressedCount] = useState<int>(0);
-  const [fieldErrors, setFieldErrors] = useState<string>([]);
+  const [fieldErrors, setFieldErrors] = useState([]);
   const [alert, setAlert] = useState({type: 'error', text: '', show: false});
   const {register, handleSubmit} = useForm({});
 
   const user = useContext(MessagePage.UserContext);
-  console.log(user);
-
   const login = useRef<int>(0);
-
-  const onCloseAlert = () => {
-    setAlert({type: '', text: '', show: false});
-    login.current += 1;
-  }
 
   const submitCreateEventHandler = handleSubmit(async (data) => {
     const {success, error} = await schema.safeParse(data);
     if (success) {
       setButtonPressedCount(buttonPressedCount + 1);
       MessageRepo.createOne({message: data.messageA});
-      router.push('/message', undefined, { shallow: false });
+      // router.push('/message', undefined, { shallow: false });
+      router.reload();
     } else {
-      const {fieldErrors} = error.flatten();
-      var errors = [];
-      Object.keys(fieldErrors).forEach((k) => {
-        errors.push(k + ' : ' + fieldErrors[k][0]);
-      });
-      setFieldErrors(errors);
-      setAlert({type: 'error', text: errors[0], show: true});
+      console.log(error);
     }
   });
 
   return (
     <>
-      <div>
-        <p> Registration count: {buttonPressedCount.toString()} </p>
-        <form onSubmit={submitCreateEventHandler}>
-          <input data-testid="input-content" {...register('messageA')} />
-          <input data-testid="submit-button" type="submit" />
-        </form>
-        <Alert
-          header={'エラー'}
-          btnText={'Close'}
-          text={alert.text}
-          type={alert.type}
-          show={alert.show}
-          onClosePress={onCloseAlert}
-          pressCloseOnOutsideClick={true}
-          showBorderBottom={false}
-          alertStyles={{}}
-          headerStyles={{}}
-          textStyles={{}}
-          buttonStyles={{}}
-        />
-      </div>
+      <Box borderColor="border.default" borderBottomWidth={1} borderBottomStyle="solid" pb={3}>
+        Registration count: {buttonPressedCount.toString()}
+      </Box>
+
+      <form onSubmit={submitCreateEventHandler}>
+        <Box display="flex">
+          <Box p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
+            <TextInput {...register('messageA')} />
+          </Box>
+          <Box p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
+            <Button variant="outline" data-testid="submit-button" type="submit" > 送信 </Button>
+          </Box>
+        </Box>
+      </form>
     </>
   );
 };

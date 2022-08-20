@@ -11,7 +11,8 @@ export const MessageCard = (props): ReactElement => {
 
   const submitEventHandler = handleSubmit(async (data) => {
     await MessageRepo.deleteOne(data['messageId']);
-    router.push('/message', undefined, { shallow: false });
+    // router.push('/message', undefined, { shallow: false });
+    router.reload();
   });
 
   return (
