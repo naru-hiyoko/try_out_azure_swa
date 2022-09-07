@@ -147,3 +147,7 @@ or
 
 * ビルド時に `getServerSideProps` が実行される点に注意
 * rest 形式の url `/hoge/{id}` が動作しない点に注意
+
+### Lint
+
+* See [here](https://nextjs.org/docs/basic-features/eslint)
