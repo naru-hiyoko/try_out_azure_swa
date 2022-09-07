@@ -5,10 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "swa start app --api-location api",
-    "lint": "npx tsc -p . --noEmit && npx eslint ./src/**/*.ts ./src/**/*.tsx ./test/**/*.ts",
-    "build": "NODE_ENV=production webpack",
-    "test": "jest --testTimeout 6000000",
-    "watch": "webpack-dev-server --config ./webpack.config.js"
+    "lint": "npx tsc -p . --noEmit && npx eslint ./src/**/*.ts ./src/**/*.tsx ./test/**/*.ts"
   },
   "repository": {
     "type": "git",
@@ -36,10 +33,12 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.27.0",
-    "recoil": "^0.6.1",
+    "react-redux": "^7.2.8",
+    "redux": "^4.1.2",
+    "redux-saga": "^1.1.3",
     "sass": "^1.49.7",
+    "sqlite3": "^5.0.11",
     "styled-components": "^5.3.5",
-    "swr": "^1.2.1",
     "zod": "^3.11.6"
   },
   "devDependencies": {
@@ -74,6 +73,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
     "msw": "^0.36.8",
+    "next-test-api-route-handler": "^3.1.7",
     "prettier": "^2.5.1",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
