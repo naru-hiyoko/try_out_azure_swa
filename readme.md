@@ -125,6 +125,17 @@ swa start app_build/ --api-location api/
 NEXT_PUBLIC_AZFUN_API_HOST=http://localhost:7071
 ```
 
+### ユニットテスト
+
+```
+[app]$npx jest
+or
+[app]$npx jest --coverage
+```
+
+* [こちらの記事を参照](https://zenn.dev/takepepe/articles/testing-gssp-and-api-routes)
+* [next-test-api-router-handler](https://www.npmjs.com/package/next-test-api-route-handler)
+
 ### ビルド＆エクスポート
 
 * azure static web apps でホストする場合は静的コンテンツをエクスポートする.
@@ -133,3 +144,6 @@ NEXT_PUBLIC_AZFUN_API_HOST=http://localhost:7071
 ```
 [app]$npx next build && npx next export -o ../app_build
 ```
+
+* ビルド時に `getServerSideProps` が実行される点に注意
+* rest 形式の url `/hoge/{id}` が動作しない点に注意
